@@ -31,8 +31,8 @@ public:
 Money withdraw_money(Money balance, Money withdrawal);
 
 int main() {
-    Money starting = {100, 00};
-    Money withdrawal = {2, 75};
+    Money starting = {200, 46};
+    Money withdrawal = {250, 87};
     Money ending = withdraw_money(starting, withdrawal);
 
     cout << "$" << ending.dollars << "." << ending.cents << endl;
@@ -41,13 +41,23 @@ int main() {
 Money withdraw_money(Money balance, Money withdrawal) {
     Money ending;
 
-    while(balance.cents <= 0) {
+    while (balance.cents < 0) {
         balance.cents += 100;
         balance.dollars--;
     }
 
-    ending.dollars = balance.dollars - withdrawal.dollars;
-    ending.cents = balance.cents - withdrawal.cents;
+    if (withdrawal.dollars > balance.dollars || (withdrawal.dollars == balance.dollars && withdrawal.cents > balance.cents)) {
+        ending.dollars = 0;
+        ending.cents = 0;
+    } else {
+        ending.dollars = balance.dollars - withdrawal.dollars;
+        ending.cents = balance.cents - withdrawal.cents;
+
+        while (ending.cents < 0) {
+            ending.cents += 100;
+            ending.dollars--;
+        }
+    }
 
     return ending;
 }
