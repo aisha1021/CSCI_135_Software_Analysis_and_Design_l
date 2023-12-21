@@ -13,29 +13,31 @@ non-default constructor, setter, and getter.
 */
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Customer {
 private:
-    string name; 
+    string name;
     string unique_id;
+
 public:
     Customer();
-    Customer(string name, string unique_id);
+    Customer(string input_name, string input_unique_id);
     string get_name();
     string get_unique_id();
     void set_name(string input_name);
     void set_unique_id(string input_unique_id);
-};    
+};
 
 Customer::Customer() {
     name = "";
     unique_id = "";
 }
 
-Customer::Customer(string name, string unique_id) {
-    this->name = name;
-    this->unique_id = unique_id;
+Customer::Customer(string input_name, string input_unique_id) {
+    name = input_name;
+    unique_id = input_unique_id;
 }
 
 string Customer::get_name() {
@@ -55,21 +57,26 @@ void Customer::set_unique_id(string input_unique_id) {
 }
 
 int main() {
-    Customer a = {"Bob", "8"};
+    Customer defaultCustomer;
 
-    cout << a.get_name() << " " << a.get_unique_id() << endl;
+    cout << "Default Customer Information:" << endl;
+    cout << "Name: " << defaultCustomer.get_name() << endl;
+    cout << "Unique ID: " << defaultCustomer.get_unique_id() << endl;
+    cout << endl;
 
-    Customer b;
+    Customer customCustomer("John Doe", "123456");
 
-    cout << b.get_name() << " " << b.get_unique_id() << endl;
+    cout << "Custom Customer Information:" << endl;
+    cout << "Name: " << customCustomer.get_name() << endl;
+    cout << "Unique ID: " << customCustomer.get_unique_id() << endl;
+    cout << endl;
 
-    //test changing name
-    string custb;
-    cout << "Change name of b:" << endl;
-    cin >> custb;
+    customCustomer.set_name("Jane Smith");
+    customCustomer.set_unique_id("789012");
 
-    b.set_name(custb);
-    cout << b.get_name() << " " << b.get_unique_id() << endl;
+    cout << "Updated Custom Customer Information:" << endl;
+    cout << "Name: " << customCustomer.get_name() << endl;
+    cout << "Unique ID: " << customCustomer.get_unique_id() << endl;
 
     return 0;
 }
